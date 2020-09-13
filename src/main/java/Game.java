@@ -40,9 +40,12 @@ public class Game {
 
     private void checkGameNotEnded() {
         boolean moreThanMaxRolls = status == NORMAL && frame > MAX_FRAMES_NUMBER;
-        boolean moreThanMaxRollsAfterSpareOrStrike = status != NORMAL && frame > MAX_FRAMES_NUMBER + 1;
+//        boolean moreThanMaxRollsAfterSpareOrStrike = status != NORMAL && frame > MAX_FRAMES_NUMBER + 1;
+        boolean moreThanMaxRollsAfterSpare = status == SPARE && frame > MAX_FRAMES_NUMBER + 1;
+        boolean moreThanMaxRollsAfterStrike = status == STRIKE && frame > MAX_FRAMES_NUMBER + 2;
 
-        if (moreThanMaxRolls || moreThanMaxRollsAfterSpareOrStrike) throw new IllegalStateException();
+//        if (moreThanMaxRolls || moreThanMaxRollsAfterSpareOrStrike) throw new IllegalStateException();
+        if (moreThanMaxRolls || moreThanMaxRollsAfterSpare || moreThanMaxRollsAfterStrike) throw new IllegalStateException();
     }
 
     private void addCurrentRollPoints(int currentRollPins) {

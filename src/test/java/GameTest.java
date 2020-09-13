@@ -122,10 +122,15 @@ class GameTest {
     void no_more_than_three_rolls_on_last_frame() {
         rollXtimes(1, 18);
         roll(10);
-        roll(3);
+        roll(3, 1);
 
         assertThrows(IllegalStateException.class,  () -> roll(1));
     }
 
+    @Test
+    void all_rolls_are_strikes() {
+        rollXtimes(10, 12);
 
+        assertEquals(300, game.score());
+    }
 }
