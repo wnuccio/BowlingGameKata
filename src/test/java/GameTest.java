@@ -118,4 +118,14 @@ class GameTest {
         assertEquals(18 + 10 + 3 + 3, game.score());
     }
 
+    @Test
+    void no_more_than_three_rolls_on_last_frame() {
+        rollXtimes(1, 18);
+        roll(10);
+        roll(3);
+
+        assertThrows(IllegalStateException.class,  () -> roll(1));
+    }
+
+
 }
