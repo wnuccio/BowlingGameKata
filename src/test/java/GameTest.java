@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -56,5 +57,25 @@ class GameTest {
         }
 
         assertThrows(IllegalStateException.class, () -> game.roll(0));
+    }
+
+    @Test
+    void bonus_on_spare() {
+        game.roll(1);
+        game.roll(9);
+        game.roll(2);
+
+        assertEquals(14, game.score());
+    }
+
+    @Disabled
+    @Test
+    void bonus_on_spare_and_reset_spare_status() {
+        game.roll(1);
+        game.roll(9);
+        game.roll(2);
+        game.roll(1);
+
+        assertEquals(15, game.score());
     }
 }
