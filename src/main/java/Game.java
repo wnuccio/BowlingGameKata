@@ -13,6 +13,7 @@ public class Game {
 
         if (spare) {
             points += pins;
+            spare = false;
 
          } else {
             spare = lastRoll + pins == 10;

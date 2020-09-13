@@ -68,7 +68,6 @@ class GameTest {
         assertEquals(14, game.score());
     }
 
-    @Disabled
     @Test
     void bonus_on_spare_and_reset_spare_status() {
         game.roll(1);
