@@ -2,6 +2,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class GameTest {
 
@@ -46,5 +47,14 @@ class GameTest {
         }
 
         assertEquals(20, game.score());
+    }
+
+    @Test
+    void error_if_more_than_twenty_rolls() {
+        for (int i = 0; i < 20; i++) {
+            game.roll(1);
+        }
+
+        assertThrows(IllegalStateException.class, () -> game.roll(0));
     }
 }
