@@ -29,19 +29,13 @@ public class Game {
     }
 
     private void setStatus(int currentRollPins) {
-        int newStatus;
-
         if (secondRollOfFrame && currentRollPins + previousRollPins == ALL_PINS) {
-            newStatus = SPARE;
+            this.status = SPARE;
         } else if (! secondRollOfFrame && currentRollPins == ALL_PINS) {
-            newStatus = STRIKE;
+            this.status = STRIKE;
         } else if (status != STRIKE) {
-            newStatus = NORMAL;
-        } else {
-            newStatus = this.status;
+            this.status = NORMAL;
         }
-
-        this.status = newStatus;
     }
 
     private void checkGameNotEnded() {
