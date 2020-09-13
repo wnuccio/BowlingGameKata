@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GameTest {
 
@@ -29,5 +29,13 @@ class GameTest {
         game.roll(1);
 
         assertEquals(1, game.score());
+    }
+
+    @Test
+    void score_as_sum_of_the_first_two_rolls() {
+        game.roll(1);
+        game.roll(2);
+
+        assertEquals(3, game.score());
     }
 }
