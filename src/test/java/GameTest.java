@@ -38,4 +38,13 @@ class GameTest {
 
         assertEquals(3, game.score());
     }
+
+    @Test
+    void score_as_sum_of_twenty_rolls() {
+        for (int i = 0; i < 20; i++) {
+            game.roll(1);
+        }
+
+        assertEquals(20, game.score());
+    }
 }
