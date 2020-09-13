@@ -1,5 +1,5 @@
 public class Game {
-    private int points;
+    private int points = 0;
 
     public void roll(int i) {
         this.points = i;
