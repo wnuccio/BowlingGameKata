@@ -45,6 +45,8 @@ public class Game {
     }
 
     private void checkGameNotEnded() {
+        if (status != NORMAL) return;
+
         if (frame > MAX_FRAMES_NUMBER) throw new IllegalStateException();
     }
 
@@ -57,9 +59,7 @@ public class Game {
             points += currentRollPins;
         } else if (status == STRIKE) {
             points += currentRollPins;
-        } else { // status == NORMAL
-            //
-        }
+        } // status == NORMAL
     }
 
     private void setCurrentRoll() {

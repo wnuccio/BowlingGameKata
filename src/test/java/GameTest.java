@@ -1,5 +1,4 @@
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,6 +11,19 @@ class GameTest {
     @BeforeEach
     void setUp() {
         game = new Game();
+    }
+
+    private void roll(int... pins) {
+        for(int p: pins) {
+            game.roll(p);
+        }
+    }
+
+
+    private void rollXtimes(int pins, int times) {
+        for (int i = 0; i < times; i++) {
+            game.roll(pins);
+        }
     }
 
     @Test
@@ -43,68 +55,59 @@ class GameTest {
 
     @Test
     void score_as_sum_of_twenty_rolls() {
-        for (int i = 0; i < 20; i++) {
-            game.roll(1);
-        }
+        rollXtimes(1, 20);
 
         assertEquals(20, game.score());
     }
 
     @Test
     void error_if_more_than_twenty_rolls() {
-        for (int i = 0; i < 20; i++) {
-            game.roll(1);
-        }
-
-        assertThrows(IllegalStateException.class, () -> game.roll(0));
+        assertThrows(IllegalStateException.class, () -> rollXtimes(1, 21));
     }
 
     @Test
     void bonus_on_spare() {
-        game.roll(1);
-        game.roll(9);
-        game.roll(2);
+        roll(1, 9, 2);
 
         assertEquals(14, game.score());
     }
 
     @Test
     void bonus_on_spare_and_reset_spare_status() {
-        game.roll(1);
-        game.roll(9);
-        game.roll(2);
-        game.roll(1);
+        roll(1, 9, 2, 1);
 
         assertEquals(15, game.score());
     }
 
     @Test
     void spare_must_be_inside_one_frame() {
-        game.roll(1);
-        game.roll(4);
-        game.roll(6);
-        game.roll(1);
+        roll(1, 4, 6, 1);
 
         assertEquals(12, game.score());
     }
 
     @Test
     void bonus_on_strike() {
-        game.roll(10);
-        game.roll(1);
-        game.roll(2);
+        roll(10, 1, 2);
 
         assertEquals(16, game.score());
     }
 
     @Test
-    void spare_than_strike() {
-        game.roll(5);
-        game.roll(5);
-        game.roll(10);
-        game.roll(1);
-        game.roll(2);
+    void spare_then_strike() {
+        roll(5, 5, 10, 1, 2);
 
         assertEquals(5 + 5 + 10 + 10 + 1 + 1 + 2 + 2, game.score());
     }
+
+    @Test
+    void spare_on_last_roll() {
+        rollXtimes(1, 18);
+        roll(1, 9);
+        roll(3);
+
+        assertEquals(18 + 1 + 9 + 3 + 3, game.score());
+    }
+
+
 }
