@@ -1,9 +1,11 @@
 public class Game {
-    public void roll(int i) {
+    private int points;
 
+    public void roll(int i) {
+        this.points = i;
     }
 
     public int score() {
-        return 0;
+        return points;
     }
 }
