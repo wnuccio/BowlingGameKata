@@ -1,29 +1,47 @@
 public class Game {
-    private static final int MAX_ROLLS_NUMBER = 20;
-    private int points = 0;
-    private int rollsNumber = 0;
-    private int lastRoll;
-    private boolean spare = false;
+    private static final int MAX_FRAMES_NUMBER = 10;
+    private static final int SPARE_POINTS = 10;
 
-    public void roll(int pins) {
-        this.rollsNumber++;
+    private int framesNumber = 1;
+    private int points = 0;
+    private int pinsOnLastRoll;
+    private boolean spare = false;
+    private boolean secondRollOfFrame = false;
+
+    public void roll(int currentRollPins) {
         checkGameNotEnded();
 
-        this.points += pins;
+        this.points += currentRollPins;
 
+        applySpareBonus(currentRollPins);
+
+        setSpareStatus(currentRollPins);
+
+        setCurrentFrame();
+
+        pinsOnLastRoll = currentRollPins;
+    }
+
+    private void applySpareBonus(int currentRollPins) {
         if (spare) {
-            points += pins;
-            spare = false;
+            points += currentRollPins;
+        }
+    }
 
-         } else {
-            spare = lastRoll + pins == 10;
+    private void setSpareStatus(int currentRollPins) {
+        spare = secondRollOfFrame && pinsOnLastRoll + currentRollPins == SPARE_POINTS;
+    }
+
+    private void setCurrentFrame() {
+        if ( secondRollOfFrame) {
+            framesNumber++;
         }
 
-        lastRoll = pins;
+        secondRollOfFrame = ! secondRollOfFrame;
     }
 
     private void checkGameNotEnded() {
-        if (rollsNumber > MAX_ROLLS_NUMBER) throw new IllegalStateException();
+        if (framesNumber > MAX_FRAMES_NUMBER) throw new IllegalStateException();
     }
 
     public int score() {
