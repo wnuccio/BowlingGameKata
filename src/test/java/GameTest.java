@@ -14,7 +14,7 @@ class GameTest {
     }
 
     private void roll(int... pins) {
-        for(int p: pins) {
+        for (int p : pins) {
             game.roll(p);
         }
     }
@@ -109,5 +109,13 @@ class GameTest {
         assertEquals(18 + 1 + 9 + 3 + 3, game.score());
     }
 
+    @Test
+    void strike_on_last_roll() {
+        rollXtimes(1, 18);
+        roll(10);
+        roll(3);
+
+        assertEquals(18 + 10 + 3 + 3, game.score());
+    }
 
 }
