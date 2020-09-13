@@ -87,4 +87,24 @@ class GameTest {
 
         assertEquals(12, game.score());
     }
+
+    @Test
+    void bonus_on_strike() {
+        game.roll(10);
+        game.roll(1);
+        game.roll(2);
+
+        assertEquals(16, game.score());
+    }
+
+    @Test
+    void spare_than_strike() {
+        game.roll(5);
+        game.roll(5);
+        game.roll(10);
+        game.roll(1);
+        game.roll(2);
+
+        assertEquals(5 + 5 + 10 + 10 + 1 + 1 + 2 + 2, game.score());
+    }
 }
